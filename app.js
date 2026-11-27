@@ -138,7 +138,7 @@ VIEWS.profiles = () => `
   ${P && me() ? `<div class="top"><button class="iconbtn" data-act="go" data-arg="home">‹</button></div>` : ""}
   <h1 class="center" style="margin-top:${P && me() ? 0 : 40}px">日本語</h1>
   <p class="center muted">Японский в дорогу. Кто будет учиться?</p>
-  <div class="list profiles" style="margin-top:22px">
+  <div class="list profiles" style="margin-top:22px;${profiles.length ? "" : "display:none"}">
     ${profiles.map(p => `<button class="item" data-act="pickProfile" data-arg="${p.id}"><span class="avatar">${p.av}</span><span class="w"><b>${p.name}</b><div class="t">${profStat(p.id)}</div></span><span class="muted">›</span></button>`).join("")}
   </div>
   <div class="card" style="margin-top:14px">

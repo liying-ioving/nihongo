@@ -1,5 +1,5 @@
 // Офлайн: всё приложение кэшируется на телефоне. При изменении файлов поднимать VERSION.
-const VERSION = "jp-v2";
+const VERSION = "jp-v3";
 const FILES = ["./", "index.html", "style.css", "words.js", "srs.js", "app.js", "manifest.webmanifest",
   "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png"];
 self.addEventListener("install", e => {
