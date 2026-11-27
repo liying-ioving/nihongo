@@ -104,3 +104,7 @@ h2{font-family:var(--serif);font-weight:500;font-size:20px;margin:22px 0 10px}
 .avatar{width:42px;height:42px;border-radius:50%;background:var(--sakura-soft);display:grid;place-items:center;font-size:20px;flex:none}
 .toast{position:fixed;left:50%;bottom:calc(90px + var(--safe-b));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:14px;z-index:30}
 .done{font-size:70px}
+/* миниатюры акварелей */
+.item .em img.th{width:44px;height:44px;border-radius:10px;object-fit:cover;display:block;margin:0 auto}
+.item .em{width:44px}
+.opt .e img.th{width:70px;height:70px;border-radius:12px;object-fit:cover;display:block}

@@ -98,6 +98,7 @@ const stage = w => SRS.stage(card(w));
 const now = () => Date.now();
 const ro = w => S().romaji ? `<div class="romaji">${w.ro}</div>` : "";
 const pic = w => IMG[w.key] ? `<img src="${IMG[w.key]}" alt="">` : w.em;
+const thumb = w => IMG[w.key] ? `<img class="th" src="${IMG[w.key]}" alt="" loading="lazy">` : w.em;
 function toast(t) { const d = document.createElement("div"); d.className = "toast"; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 2200); }
 function topicCounts(t) { const c = [0, 0, 0, 0]; t.items.forEach(w => c[stage(w)]++); return c; }
 // К повторению: всё, что пора, плюс слова на заучивании, до которых меньше 20 минут (их можно повторить сразу после урока)
@@ -191,7 +192,7 @@ VIEWS.topic = () => {
   <div class="list">${t.items.map(w => wordRow(w)).join("")}</div>${legend()}`;
 };
 function wordRow(w) {
-  return `<div class="item"><span class="em">${w.em}</span><button class="w" data-act="show" data-arg="${w.key}" style="text-align:left"><div class="j">${w.jp}</div>${S().romaji ? `<div class="r">${w.ro}</div>` : ""}<div class="t">${w.ru}</div></button><i class="dot s${stage(w)}"></i><button class="speak" data-act="say" data-arg="${w.key}">🔊</button></div>`;
+  return `<div class="item"><span class="em">${thumb(w)}</span><button class="w" data-act="show" data-arg="${w.key}" style="text-align:left"><div class="j">${w.jp}</div>${S().romaji ? `<div class="r">${w.ro}</div>` : ""}<div class="t">${w.ru}</div></button><i class="dot s${stage(w)}"></i><button class="speak" data-act="say" data-arg="${w.key}">🔊</button></div>`;
 }
 
 // ----- урок: обзор → знакомство → мини-проверка -----
@@ -214,7 +215,7 @@ VIEWS.lesson = () => {
   const L = V, t = TOPIC[L.tid];
   if (L.phase === "overview") return `
     <div class="top"><button class="iconbtn" data-act="go" data-arg="home">✕</button><div class="grow"><b>${t.icon} ${t.name}</b><div class="small muted">${L.words.length} новых слов — сначала просто посмотри и послушай</div></div></div>
-    <div class="list" style="margin-top:10px">${L.words.map(w => `<div class="item"><span class="em">${w.em}</span><div class="w"><div class="j">${w.jp}</div>${S().romaji ? `<div class="r">${w.ro}</div>` : ""}<div class="t">${w.ru}</div></div><button class="speak" data-act="say" data-arg="${w.key}">🔊</button></div>`).join("")}</div>
+    <div class="list" style="margin-top:10px">${L.words.map(w => `<div class="item"><span class="em">${thumb(w)}</span><div class="w"><div class="j">${w.jp}</div>${S().romaji ? `<div class="r">${w.ro}</div>` : ""}<div class="t">${w.ru}</div></div><button class="speak" data-act="say" data-arg="${w.key}">🔊</button></div>`).join("")}</div>
     <div class="bottom"><button class="btn red" data-act="lessonIntro">Начать</button></div>`;
   if (L.phase === "intro") {
     const w = L.words[L.i];
@@ -257,7 +258,7 @@ function choiceHTML(task) {
     ? `<div class="prompt">Что это значит?</div><button class="speak" style="width:84px;height:84px;font-size:34px" data-act="say" data-arg="${w.key}">🔊</button>${done ? `<div class="bigjp">${w.jp}</div>${ro(w)}` : ""}`
     : `<div class="prompt">Как это по-японски?</div><div class="pic">${pic(w)}</div><div class="ru">${w.ru}</div>`;
   const opts = task.opts.map(o => task.type === "listen"
-    ? `<button class="opt ${cls(o)}" data-act="pick" data-arg="${o.key}"><span class="e">${o.em}</span><span class="small">${o.ru}</span></button>`
+    ? `<button class="opt ${cls(o)}" data-act="pick" data-arg="${o.key}"><span class="e">${thumb(o)}</span><span class="small">${o.ru}</span></button>`
     : `<button class="opt ${cls(o)}" data-act="pick" data-arg="${o.key}"><span class="j">${o.jp}</span>${S().romaji ? `<span class="r">${o.ro}</span>` : ""}</button>`).join("");
   const wrong = done && task.picked !== w.key;
   return `<div class="ex"><div class="stagecard">${top}${wrong ? assocHTML(w) : ""}</div><div class="opts">${opts}</div>
